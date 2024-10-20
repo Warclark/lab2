@@ -9,13 +9,25 @@
 #define BUFSIZE 1024
 #define AES_KEYLEN 256
 #define AES_BLOCK_SIZE 16
-
+/**
+ * \brief Prints usage information for the program.
+ */
 void usrGid() {
     printf("file_encrypt -e||-d -f <filename> -p <password>\n");
     printf("-e-d  Encrypt or decrypt\n");
     printf("-f  file name\n");
     printf("-p  password\n");
 }
+/**
+ * \brief Encrypts or decrypts data from an input file to an output file.
+ *
+ * \param in Input file stream.
+ * \param out Output file stream.
+ * \param key Encryption key.
+ * \param iv Initialization vector.
+ * \param mode Mode of operation: 1 for encryption, 0 for decryption.
+ */
+
 void crypt_func(FILE *in, FILE *out, uint8_t* key, uint8_t* iv, int mode) {
     EVP_CIPHER_CTX *ctx = EVP_CIPHER_CTX_new();
     if (!ctx) {
@@ -74,6 +86,13 @@ void crypt_func(FILE *in, FILE *out, uint8_t* key, uint8_t* iv, int mode) {
 
     EVP_CIPHER_CTX_free(ctx);
 }
+/**
+ * \brief Main function to handle command line arguments and perform encryption or decryption.
+ *
+ * \param argc Number of command line arguments.
+ * \param argv List of command line arguments.
+ * \return int Returns 0 on success, 1 on failure.
+ */
 
 int main (int argc, char* argv[]) {
     uint8_t en = 0;
